@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars. Safe to commit (no secrets).
+app_name        = "myapp"
+gcp_project     = "my-project-123456"
+gcp_region      = "asia-southeast1"
+frontend_domain = "myapp.example.com"
+backend_domain  = "myapp-api.example.com"
+
+# First apply: false. After domain verification: true.
+enable_domain_mapping = false

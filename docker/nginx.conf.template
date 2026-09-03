@@ -1,0 +1,20 @@
+# Copy next to the frontend Dockerfile. Nothing to SET.
+server {
+    # ${PORT} is substituted at startup by the base image's envsubst entrypoint,
+    # so platforms that inject their own port (Cloud Run, Railway, Render) work.
+    listen ${PORT};
+    root   /usr/share/nginx/html;
+
+    gzip       on;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+
+    # SPA: every unknown path serves index.html and the router takes over.
+    location / {
+        try_files $uri /index.html;
+    }
+
+    # Vite hashes asset filenames, so they can never go stale.
+    location /assets/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+}
